@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BoardMapper">
+
+  <!-- 조회결과를 매핑할 클래스정보 등록: resultType="" -->
+  <select id="findAll" resultType="dto.board2.Board2DTO">
+  	select * from board
+  	order by bno desc
+  </select>
+  <select id="findById" resultType="dto.board2.Board2DTO">
+  	select * from board
+  	where bno=#{bno}
+  	
+  </select>
+  <update id="readCountPP">
+  	update board
+  	set read_count=read_count+1
+  	where bno=#{bno}
+  </update>
+  
+  
+  <insert id="save">
+  	insert into board(bno, subject, content, creater, updated_date)
+  	values(seq_bo.nextval, #{subject}, #{content}, #{creater}, systimestamp)
+  </insert>
+  <update id="update" >
+  	update board
+  	set subject=#{subject} , content=#{content}, updated_date=systimestamp
+  	where bno=#{bno}
+  </update>
+  <delete id="deleteById">
+  	delete board
+  	where bno=#{bno}
+  </delete>
+</mapper>
